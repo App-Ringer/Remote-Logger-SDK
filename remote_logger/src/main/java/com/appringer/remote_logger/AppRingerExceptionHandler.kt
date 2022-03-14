@@ -1,10 +1,9 @@
 package com.appringer.remote_logger
 
-import android.content.Context
 import com.appringer.remote_logger.enum.LogTagEnum
 import com.appringer.remote_logger.helper.AppConfig
-import com.appringer.remote_logger.helper.Log
 import com.appringer.remote_logger.helper.LoggerHelper
+import com.appringer.remote_logger.logger.RemoteLogger
 import com.appringer.remote_logger.model.LogRequest
 import com.appringer.remote_logger.util.GSONUtils
 
@@ -22,21 +21,21 @@ class AppRingerExceptionHandler internal constructor(
         }
     }
 
-    private fun reportUncaughtException(throwable: Throwable){
-        throwable.cause?.stackTrace?.firstOrNull()?.let {
-            LoggerHelper.log(LogTagEnum.ERROR.value,it).also { formattedLog->
-                Log.send(LogRequest(
-                    LogTagEnum.ERROR.value,
-                    LogTagEnum.ERROR.value,
-                    "Uncaught Exception",
-                    GSONUtils.toString(formattedLog),
-                ))
-            }
-        }
+    private fun reportUncaughtException(throwable: Throwable) {
+        val log = GSONUtils.toString(throwable.cause?.cause?.stackTrace)
+        LoggerHelper.log(LogTagEnum.ERROR.value, log)
+        RemoteLogger.sendLog(
+            LogRequest(
+                LogTagEnum.ERROR.value,
+                LogTagEnum.ERROR.value,
+                "Uncaught Exception",
+                log,
+            )
+        )
     }
 
     companion object {
-        internal fun register(apiKey:String) {
+        internal fun register(apiKey: String) {
             AppConfig.API_KEY = apiKey
             val existingHandler = Thread.getDefaultUncaughtExceptionHandler()
             if (existingHandler !is AppRingerExceptionHandler) {

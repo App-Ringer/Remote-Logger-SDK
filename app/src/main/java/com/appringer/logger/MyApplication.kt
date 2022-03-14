@@ -5,14 +5,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.appringer.remote_logger.AppRingerExceptionHandler
-import com.appringer.remote_logger.`interface`.RemoteLog
+import com.appringer.remote_logger.logger.LoggerImpl
+import com.appringer.remote_logger.logger.RemoteLogger
 
 class MyApplication : Application(), LifecycleObserver {
 
     init {
         instance = this
-        RemoteLog.register("BLOCK_CALLS")
+        RemoteLogger.register("BLOCK_CALLS")
     }
 
     companion object {
@@ -29,6 +29,6 @@ class MyApplication : Application(), LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(){
-        RemoteLog.unregister()
+        RemoteLogger.unregister()
     }
 }
