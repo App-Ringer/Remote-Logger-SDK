@@ -1,7 +1,7 @@
 package com.appringer.remote_logger.logger
 
 import com.appringer.remote_logger.AppRingerExceptionHandler
-import com.appringer.remote_logger.enum.LogTagEnum
+import com.appringer.remote_logger.enum.LogLevelEnum
 import com.appringer.remote_logger.helper.LoggerHelper
 import com.appringer.remote_logger.model.LogRequest
 import com.appringer.remote_logger.retrofit.NetworkHelper
@@ -23,11 +23,11 @@ object LoggerImpl:Logger {
 
     fun sendLog(e:Exception) {
         val log = GSONUtils.toString(e.cause?.cause?.stackTrace)
-        LoggerHelper.log(LogTagEnum.ERROR.value, log)
+        LoggerHelper.log(LogLevelEnum.ERROR.value, log)
         sendLog(
             LogRequest(
-                LogTagEnum.ERROR.value,
-                LogTagEnum.ERROR.value,
+                LogLevelEnum.ERROR.value,
+                LogLevelEnum.ERROR.value,
                 "Exception",
                 log,
             )

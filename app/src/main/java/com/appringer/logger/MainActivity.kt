@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.appringer.logger.databinding.ActivityMainBinding
-import com.appringer.remote_logger.enum.LogTagEnum
+import com.appringer.remote_logger.enum.LogLevelEnum
 import com.appringer.remote_logger.logger.RemoteLogger
 import com.appringer.remote_logger.model.LogRequest
 import com.appringer.remote_logger.util.GSONUtils
@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.tv.setOnClickListener {
                 RemoteLogger.sendLog(LogRequest(
-                        LogTagEnum.ERROR.value,
-                        LogTagEnum.ERROR.value,
+                        LogLevelEnum.ERROR.value,
+                        LogLevelEnum.ERROR.value,
                         "Uncaught Exception",
                         GSONUtils.toString(TempDO("Temp","Desc")),
                     )

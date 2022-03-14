@@ -1,6 +1,6 @@
 package com.appringer.remote_logger
 
-import com.appringer.remote_logger.enum.LogTagEnum
+import com.appringer.remote_logger.enum.LogLevelEnum
 import com.appringer.remote_logger.helper.AppConfig
 import com.appringer.remote_logger.helper.LoggerHelper
 import com.appringer.remote_logger.logger.RemoteLogger
@@ -23,11 +23,11 @@ class AppRingerExceptionHandler internal constructor(
 
     private fun reportUncaughtException(throwable: Throwable) {
         val log = GSONUtils.toString(throwable.cause?.cause?.stackTrace)
-        LoggerHelper.log(LogTagEnum.ERROR.value, log)
+        LoggerHelper.log(LogLevelEnum.ERROR.value, log)
         RemoteLogger.sendLog(
             LogRequest(
-                LogTagEnum.ERROR.value,
-                LogTagEnum.ERROR.value,
+                LogLevelEnum.UNCAUGHT.value,
+                LogLevelEnum.UNCAUGHT.value,
                 "Uncaught Exception",
                 log,
             )
