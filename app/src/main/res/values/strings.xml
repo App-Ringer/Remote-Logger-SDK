@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Logger</string>
+    <string name="throw_exception">Throw Exception</string>
+    <string name="throw_uncaught_exception">Throw Uncaught Exception</string>
 </resources>
