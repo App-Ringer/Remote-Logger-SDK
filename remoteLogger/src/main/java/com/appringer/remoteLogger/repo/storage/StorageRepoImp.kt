@@ -33,7 +33,6 @@ object StorageRepoImp : StorageRepo {
         cacheLogStatus: CacheLogStatus,
         listener: RealmChangeListener<List<CacheLogDO>>
     ) {
-        RemoteLogger.d("RealmChangeListener:Start")
         val realmQuery = Realm.getDefaultInstance().where(CacheLogDO::class.java)
 
         when (cacheLogStatus) {
