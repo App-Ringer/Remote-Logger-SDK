@@ -64,7 +64,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.github.sujay-appringer'
+                groupId = 'com.github.appringer'
                 artifactId = 'remoteLogger'
                 version = '1.0'
             }
