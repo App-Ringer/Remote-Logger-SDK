@@ -3,10 +3,6 @@ package com.appringer.remoteLogger.model
 import android.os.Build
 import com.appringer.remoteLogger.helper.AppConfig
 import com.appringer.remoteLogger.util.GSONUtils
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
 
@@ -21,7 +17,8 @@ open class LogRequest(
 
 data class DeviceInfo(
     val osVersion: String = Build.VERSION.SDK_INT.toString(),
-    val platform: String = "Android"
+    val platform: String = "Android",
+    val sdkVersion:String = "1.0.3"
 )
 
 fun LogRequest.toLogRequestForUpload() =
