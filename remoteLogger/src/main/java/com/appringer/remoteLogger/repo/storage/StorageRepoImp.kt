@@ -16,7 +16,7 @@ object StorageRepoImp : StorageRepo {
     override suspend fun saveCallLog(log: CacheLogDO) {
         Realm.getDefaultInstance().executeTransactionAwait(Dispatchers.IO) {
             try {
-                it.insert(log)
+                it.insertOrUpdate(log)
             } catch (e: Exception) {
                 RemoteLogger.e(t = e)
             }

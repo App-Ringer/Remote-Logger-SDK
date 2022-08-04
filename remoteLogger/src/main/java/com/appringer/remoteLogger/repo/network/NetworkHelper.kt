@@ -6,6 +6,7 @@ import com.appringer.remoteLogger.helper.LoggerHelper
 import com.appringer.remoteLogger.model.CacheLogDO
 import com.appringer.remoteLogger.model.LogRequest
 import com.appringer.remoteLogger.model.LogStackTrace
+import com.appringer.remoteLogger.model.toLogRequestForUpload
 import com.appringer.remoteLogger.repo.logger.LogProvider
 import com.appringer.remoteLogger.repo.storage.StorageRepoImp
 import com.appringer.remoteLogger.util.GSONUtils
@@ -27,7 +28,7 @@ object NetworkHelper : LogProvider {
                 GSONUtils.getObj(logReq, LogRequest::class.java).let { logRequest ->
                     StorageRepoImp.saveCallLog(cacheLogInThread)
                     val response =
-                        RetrofitInstance.api.log(logRequest = logRequest)
+                        RetrofitInstance.api.log(logRequest = logRequest.toLogRequestForUpload())
                     if (response.body()?.code ?: 0 == 200) {
                         LoggerHelper.log("RemoteLog Submitted ${response.body()?.message}")
                         cacheLogInThread.isSynced = true
@@ -63,7 +64,7 @@ object NetworkHelper : LogProvider {
 
     override fun sendLog(t: Throwable, tag: String?, desc: String?, logLevelEnum: LogLevelEnum?) {
         val logRequest = getLogRequest(
-            GSONUtils.toJsonObject(LogStackTrace(t.stackTrace ?: arrayOf())),
+            GSONUtils.toJSONObject(LogStackTrace(t.stackTrace ?: arrayOf())),
             logLevelEnum?:AppConfig.defaultLevel,
             tag,
             desc
