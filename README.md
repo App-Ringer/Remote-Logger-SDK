@@ -3,11 +3,11 @@
 ## Configure
 RemoteLogger.register("BLOCK_CALLS")
 
-## setTag
-`RemoteLogger.setTag("Kush")`
+## setDefaultTag
+`RemoteLogger.setDefaultTag("Kush")`
 
-## setLevel
-`RemoteLogger.setLevel("Info")`
+## setDefaultLevel
+`RemoteLogger.setDefaultLevel("Info")`
 
 ## Log Description with json[optional] & tag[optional]
 `RemoteLogger.log(desc, json, tag)`
