@@ -27,11 +27,11 @@ object LoggerImpl : LogProvider,LoggerConfig {
         if (enableLogCat) enableLogCat() else disableLogCat()
         AppConfig.API_KEY = apiKey
         AppRingerExceptionHandler.register(context)
-        AppConfig.networkStatus = context.hasNetwork()
+        AppConfig.NETWORK_STATUS = context.hasNetwork()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            AppConfig.simCount = context.getSimCount()
+            AppConfig.SIM_COUNT = context.getSimCount()
         }
-        AppConfig.appBuildVersion = appBuildVersion
+        AppConfig.APP_BUILD_VERSION = appBuildVersion
         intiRealm(context,apiKey)
         pushUnSyncedLogs()
     }
@@ -48,11 +48,11 @@ object LoggerImpl : LogProvider,LoggerConfig {
     }
 
     override fun enableLogCat() {
-        AppConfig.isLogCatEnable = true
+        AppConfig.IS_LOGCAT_ENABLE = true
     }
 
     override fun disableLogCat() {
-        AppConfig.isLogCatEnable = false
+        AppConfig.IS_LOGCAT_ENABLE = false
     }
 
     override fun unregister() {
@@ -60,11 +60,11 @@ object LoggerImpl : LogProvider,LoggerConfig {
     }
 
     override fun setTag(tag: String) {
-        AppConfig.defaultTag = tag
+        AppConfig.DEFAULT_TAG = tag
     }
 
     override fun setLevel(level: LogLevelEnum) {
-        AppConfig.defaultLevel = level
+        AppConfig.DEFAULT_LEVEL = level
     }
 
     override fun sendLog(
@@ -73,8 +73,8 @@ object LoggerImpl : LogProvider,LoggerConfig {
         desc: String?,
         logLevelEnum: LogLevelEnum?
     ){
-        if(AppConfig.isLogCatEnable){
-            LoggerHelper.log(tag?:AppConfig.defaultTag,message.toString())
+        if(AppConfig.IS_LOGCAT_ENABLE){
+            LoggerHelper.log(tag?:AppConfig.DEFAULT_TAG,message.toString())
         }
         NetworkHelper.sendLog(message, tag, desc, logLevelEnum)
 
@@ -84,8 +84,8 @@ object LoggerImpl : LogProvider,LoggerConfig {
                 tag: String?,
                 desc: String?,
                 logLevelEnum: LogLevelEnum?){
-        if(AppConfig.isLogCatEnable){
-            LoggerHelper.log(tag?:AppConfig.defaultTag,t.stackTrace.toString())
+        if(AppConfig.IS_LOGCAT_ENABLE){
+            LoggerHelper.log(tag?:AppConfig.DEFAULT_TAG,t.stackTrace.toString())
         }
         NetworkHelper.sendLog(t,tag, desc, logLevelEnum)
     }

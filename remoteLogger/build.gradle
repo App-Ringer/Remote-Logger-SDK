@@ -21,10 +21,10 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField 'String', 'sdk_version', '"1.0.3"'
+            buildConfigField 'String', 'sdkVersion', '"1.0.6"'
         }
         release {
-            buildConfigField 'String', 'sdk_version', '"1.0.3"'
+            buildConfigField 'String', 'sdkVersion', '"1.0.6"'
         }
     }
 

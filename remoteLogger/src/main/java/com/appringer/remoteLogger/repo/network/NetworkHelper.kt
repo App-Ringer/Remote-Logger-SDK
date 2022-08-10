@@ -51,7 +51,7 @@ object NetworkHelper : LogProvider {
     ) {
         val logRequest = getLogRequest(
             message,
-            logLevelEnum?:AppConfig.defaultLevel,
+            logLevelEnum?:AppConfig.DEFAULT_LEVEL,
             tag,
             desc
         )
@@ -67,7 +67,7 @@ object NetworkHelper : LogProvider {
         json.put("Cause",t.cause)
         val logRequest = getLogRequest(
             json,
-            logLevelEnum?:AppConfig.defaultLevel,
+            logLevelEnum?:AppConfig.DEFAULT_LEVEL,
             tag,
             desc
         )
@@ -92,7 +92,7 @@ object NetworkHelper : LogProvider {
     ): LogRequest {
         return LogRequest(
             logLevelEnum.value,
-            tag ?: AppConfig.defaultTag,
+            tag ?: AppConfig.DEFAULT_TAG,
             desc ?: "",
             obj?:JSONObject()
         )

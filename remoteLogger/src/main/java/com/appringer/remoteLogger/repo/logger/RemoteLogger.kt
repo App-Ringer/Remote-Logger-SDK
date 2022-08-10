@@ -3,8 +3,6 @@ package com.appringer.remoteLogger.repo.logger
 import android.content.Context
 import com.appringer.remoteLogger.enum.LogLevelEnum
 import com.appringer.remoteLogger.helper.AppConfig
-import com.appringer.remoteLogger.model.CacheLogDO
-import com.google.gson.JsonObject
 import org.json.JSONObject
 import java.lang.Exception
 
@@ -73,7 +71,7 @@ object RemoteLogger:LogProvider,LoggerConfig {
 
     //level: CRASH
     fun log(t:Throwable,tag:String?) {
-        sendLog(t, tag = tag?:AppConfig.defaultTag)
+        sendLog(t, tag = tag?:AppConfig.DEFAULT_TAG)
     }
 
     fun debug(t:Throwable) {
@@ -89,26 +87,26 @@ object RemoteLogger:LogProvider,LoggerConfig {
     }
 
     fun error(t:Throwable,tag:String?) {
-        sendLog(t, tag = tag?:AppConfig.defaultTag, logLevelEnum = LogLevelEnum.ERROR)
+        sendLog(t, tag = tag?:AppConfig.DEFAULT_TAG, logLevelEnum = LogLevelEnum.ERROR)
     }
 
     fun log(exception: Exception){
         sendLog(exception)
     }
 
-    fun log(desc: String?,json:JSONObject,tag: String?=AppConfig.defaultTag){
+    fun log(desc: String?,json:JSONObject,tag: String?=AppConfig.DEFAULT_TAG){
         sendLog(desc = desc, message =json,tag = tag)
     }
 
-    fun debug(desc: String?,json:JSONObject,tag: String?=AppConfig.defaultTag){
+    fun debug(desc: String?,json:JSONObject,tag: String?=AppConfig.DEFAULT_TAG){
         sendLog(desc = desc, message =json,tag = tag, logLevelEnum = LogLevelEnum.DEBUG)
     }
 
-    fun info(desc: String?,json:JSONObject,tag: String?=AppConfig.defaultTag){
+    fun info(desc: String?,json:JSONObject,tag: String?=AppConfig.DEFAULT_TAG){
         sendLog(desc = desc, message =json,tag = tag, logLevelEnum = LogLevelEnum.INFO)
     }
 
-    fun error(desc: String?,json:JSONObject,tag: String?=AppConfig.defaultTag){
+    fun error(desc: String?,json:JSONObject,tag: String?=AppConfig.DEFAULT_TAG){
         sendLog(desc = desc, message =json,tag = tag, logLevelEnum = LogLevelEnum.ERROR)
     }
 
