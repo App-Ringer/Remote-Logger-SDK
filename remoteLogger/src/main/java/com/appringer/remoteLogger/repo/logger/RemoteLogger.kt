@@ -26,9 +26,10 @@ object RemoteLogger:LogProvider,LoggerConfig {
         context: Context,
         apiKey: String,
         enableLogCat: Boolean,
-        defaultTag: String
+        defaultTag: String,
+        appBuildVersion: String
     ) {
-        LoggerImpl.register(context, apiKey, enableLogCat, defaultTag)
+        LoggerImpl.register(context, apiKey, enableLogCat, defaultTag, appBuildVersion)
     }
 
     override fun enableLogCat() { LoggerImpl.enableLogCat() }

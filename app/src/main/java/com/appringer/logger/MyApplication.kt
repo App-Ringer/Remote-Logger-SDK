@@ -24,7 +24,7 @@ class MyApplication : Application(), LifecycleObserver {
     override fun onCreate() {
         super.onCreate()
         RemoteLogger.apply {
-            register(this@MyApplication, "SUA-786-JGK-754")
+            register(this@MyApplication, "SUA-786-JGK-754", appBuildVersion = BuildConfig.VERSION_NAME)
             setTag("Relevant Tag")
             setLevel(LogLevelEnum.INFO)
         }

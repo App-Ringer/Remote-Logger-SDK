@@ -17,7 +17,13 @@ import org.json.JSONObject
 
 object LoggerImpl : LogProvider,LoggerConfig {
 
-    override fun register(context: Context,apiKey: String, enableLogCat: Boolean, defaultTag: String) {
+    override fun register(
+        context: Context,
+        apiKey: String,
+        enableLogCat: Boolean,
+        defaultTag: String,
+        appBuildVersion: String
+    ) {
         if (enableLogCat) enableLogCat() else disableLogCat()
         AppConfig.API_KEY = apiKey
         AppRingerExceptionHandler.register(context)
@@ -25,6 +31,7 @@ object LoggerImpl : LogProvider,LoggerConfig {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             AppConfig.simCount = context.getSimCount()
         }
+        AppConfig.appBuildVersion = appBuildVersion
         intiRealm(context,apiKey)
         pushUnSyncedLogs()
     }

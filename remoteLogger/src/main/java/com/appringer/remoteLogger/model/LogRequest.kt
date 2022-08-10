@@ -21,7 +21,9 @@ data class DeviceInfo(
     val sdkVersion:String = "1.0.5",
     val manufacturer:String = android.os.Build.MANUFACTURER,
     val model:String = android.os.Build.MODEL,
-    val networkStatus:String = AppConfig.networkStatus
+    val networkStatus:String = AppConfig.networkStatus,
+    val buildVersion:String = AppConfig.appBuildVersion,
+    val securityPatch:String? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { android.os.Build.VERSION.SECURITY_PATCH } else { null },
 )
 
 fun LogRequest.toLogRequestForUpload() =

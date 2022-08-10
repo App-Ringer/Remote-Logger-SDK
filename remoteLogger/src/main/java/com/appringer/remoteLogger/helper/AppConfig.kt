@@ -9,5 +9,7 @@ object AppConfig {
     var defaultTag: String = "Log"
     var networkStatus: String = ""
     var simCount: Int = 0
+    var appBuildVersion: String = ""
+    var securityPath: String = ""
     var defaultLevel: LogLevelEnum = LogLevelEnum.VERBOSE
 }

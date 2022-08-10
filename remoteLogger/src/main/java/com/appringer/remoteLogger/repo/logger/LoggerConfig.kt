@@ -4,7 +4,7 @@ import android.content.Context
 import com.appringer.remoteLogger.enum.LogLevelEnum
 
 interface LoggerConfig {
-    fun register(context: Context,apiKey: String, enableLogCat: Boolean = true, defaultTag: String = "")
+    fun register(context: Context,apiKey: String, enableLogCat: Boolean = true, defaultTag: String = "",appBuildVersion: String = "")
     fun enableLogCat()
     fun disableLogCat()
     fun unregister()
