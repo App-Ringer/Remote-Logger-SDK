@@ -18,7 +18,10 @@ open class LogRequest(
 data class DeviceInfo(
     val osVersion: String = Build.VERSION.SDK_INT.toString(),
     val platform: String = "Android",
-    val sdkVersion:String = "1.0.4"
+    val sdkVersion:String = "1.0.5",
+    val manufacturer:String = android.os.Build.MANUFACTURER,
+    val model:String = android.os.Build.MODEL,
+    val networkStatus:String = AppConfig.networkStatus
 )
 
 fun LogRequest.toLogRequestForUpload() =

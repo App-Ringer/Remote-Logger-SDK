@@ -7,5 +7,7 @@ object AppConfig {
     var API_KEY = ""
     var isLogCatEnable: Boolean = true
     var defaultTag: String = "Log"
+    var networkStatus: String = ""
+    var simCount: Int = 0
     var defaultLevel: LogLevelEnum = LogLevelEnum.VERBOSE
 }

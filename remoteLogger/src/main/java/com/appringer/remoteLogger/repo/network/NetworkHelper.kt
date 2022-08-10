@@ -63,8 +63,10 @@ object NetworkHelper : LogProvider {
     }
 
     override fun sendLog(t: Throwable, tag: String?, desc: String?, logLevelEnum: LogLevelEnum?) {
+        val json = GSONUtils.toJSONObject(LogStackTrace(t.stackTrace ?: arrayOf()))
+        json.put("Cause",t.cause)
         val logRequest = getLogRequest(
-            GSONUtils.toJSONObject(LogStackTrace(t.stackTrace ?: arrayOf())),
+            json,
             logLevelEnum?:AppConfig.defaultLevel,
             tag,
             desc

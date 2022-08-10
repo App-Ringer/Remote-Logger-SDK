@@ -71,8 +71,8 @@ object RemoteLogger:LogProvider,LoggerConfig {
     }
 
     //level: CRASH
-    fun log(t:Throwable) {
-        sendLog(t)
+    fun log(t:Throwable,tag:String?) {
+        sendLog(t, tag = tag?:AppConfig.defaultTag)
     }
 
     fun debug(t:Throwable) {
@@ -85,6 +85,10 @@ object RemoteLogger:LogProvider,LoggerConfig {
 
     fun error(t:Throwable) {
         sendLog(t, logLevelEnum = LogLevelEnum.ERROR)
+    }
+
+    fun error(t:Throwable,tag:String?) {
+        sendLog(t, tag = tag?:AppConfig.defaultTag, logLevelEnum = LogLevelEnum.ERROR)
     }
 
     fun log(exception: Exception){
