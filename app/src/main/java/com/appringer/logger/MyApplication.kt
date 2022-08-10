@@ -5,14 +5,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.appringer.remote_logger.logger.LoggerImpl
-import com.appringer.remote_logger.logger.RemoteLogger
+import com.appringer.remoteLogger.enum.LogLevelEnum
+import com.appringer.remoteLogger.repo.logger.RemoteLogger
 
 class MyApplication : Application(), LifecycleObserver {
 
     init {
         instance = this
-        RemoteLogger.register("BLOCK_CALLS")
     }
 
     companion object {
@@ -24,11 +23,16 @@ class MyApplication : Application(), LifecycleObserver {
 
     override fun onCreate() {
         super.onCreate()
+        RemoteLogger.apply {
+            register(this@MyApplication, "SUA-786-JGK-754", appBuildVersion = BuildConfig.VERSION_NAME)
+            setTag("Relevant Tag")
+            setLevel(LogLevelEnum.INFO)
+        }
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy(){
+    fun onDestroy() {
         RemoteLogger.unregister()
     }
 }

@@ -4,32 +4,49 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.appringer.logger.databinding.ActivityMainBinding
-import com.appringer.remote_logger.enum.LogTagEnum
-import com.appringer.remote_logger.logger.RemoteLogger
-import com.appringer.remote_logger.model.LogRequest
-import com.appringer.remote_logger.util.GSONUtils
+import com.appringer.remoteLogger.repo.logger.RemoteLogger
+import org.json.JSONObject
 import java.io.IOException
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.tv.setOnClickListener {
-                RemoteLogger.sendLog(LogRequest(
-                        LogTagEnum.ERROR.value,
-                        LogTagEnum.ERROR.value,
-                        "Uncaught Exception",
-                        GSONUtils.toString(TempDO("Temp","Desc")),
-                    )
-                )
-        }
-        binding.tvUncaughtException.setOnClickListener {
-            try {
+        binding.apply {
+            btnException.setOnClickListener {
+                val dummyJson = JSONObject().also {
+                    it.put("id", "unique id")
+                    it.put("name", "Dummy Name")
+                }
+                val desc = "desc"
+                val tag = "tag"
+                RemoteLogger.i("message")//TempDO("Temp","Desc",0L))
+
+                RemoteLogger.log(desc, dummyJson, tag)
+
+                RemoteLogger.log(Exception())
+
+                RemoteLogger.debug(desc, dummyJson, tag)
+
+                RemoteLogger.debug(Exception())
+
+                RemoteLogger.info(desc, dummyJson, tag)
+
+                RemoteLogger.info(Exception())
+
+                RemoteLogger.error(desc, dummyJson, tag)
+
+                RemoteLogger.error(Exception())
+            }
+
+            btnUncaughtException.setOnClickListener {
                 throwException()
-            }catch (e:Exception){
-                RemoteLogger.sendException(e)
+//            try {
+//                throwException()
+//            }catch (e:Exception){
+//                RemoteLogger.e(e)
+//            }
             }
         }
     }

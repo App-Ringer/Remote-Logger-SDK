@@ -14,22 +14,26 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <TextView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            android:id="@+id/tv"
+            android:text="@string/throw_exception"
+            android:id="@+id/btnException"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/throw_uncaught_exception"
+            android:id="@+id/btnUncaughtException"
             android:layout_marginTop="20dp"
-            android:id="@+id/tv_uncaught_exception"
-            android:text="uncaught exception"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 </layout>
