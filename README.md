@@ -1,6 +1,4 @@
-# Remote-Logger-Android
-
-[![](https://jitpack.io/v/App-Ringer/Remote-Logger-SDK.svg)](https://jitpack.io/#App-Ringer/Remote-Logger-SDK)
+# Remote-Logger-Android [![](https://jitpack.io/v/App-Ringer/Remote-Logger-SDK.svg)](https://jitpack.io/#App-Ringer/Remote-Logger-SDK)
 
 ## Configure
 RemoteLogger.register("BLOCK_CALLS")
