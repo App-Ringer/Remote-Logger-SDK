@@ -1,6 +1,5 @@
 package com.appringer.remoteLogger.util
 
-import com.appringer.remoteLogger.constant.URLConstant
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -24,7 +23,7 @@ object GSONUtils {
         return getObj(toString(src), destType)
     }
 
-    fun toJSONObject(obj: Any?):JSONObject{
+    fun toJSONObject(obj: Any?): JSONObject {
         return JSONObject(toString(obj))
     }
 
@@ -37,7 +36,7 @@ object GSONUtils {
     fun toMap(jsonObj: JSONObject): MutableMap<String, Any> {
         return mutableMapOf<String, Any>().apply {
             jsonObj.keys().forEach {
-                    put(it, jsonObj[it])
+                put(it, jsonObj[it])
             }
         }
     }

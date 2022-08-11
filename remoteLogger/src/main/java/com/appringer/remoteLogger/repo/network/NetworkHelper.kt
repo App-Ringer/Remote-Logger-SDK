@@ -5,7 +5,6 @@ import com.appringer.remoteLogger.helper.AppConfig
 import com.appringer.remoteLogger.helper.LoggerHelper
 import com.appringer.remoteLogger.model.CacheLogDO
 import com.appringer.remoteLogger.model.LogRequest
-import com.appringer.remoteLogger.model.LogStackTrace
 import com.appringer.remoteLogger.model.toLogRequestForUpload
 import com.appringer.remoteLogger.repo.logger.LogProvider
 import com.appringer.remoteLogger.repo.storage.StorageRepoImp
@@ -29,7 +28,7 @@ object NetworkHelper : LogProvider {
                     StorageRepoImp.saveCallLog(cacheLogInThread)
                     val response =
                         RetrofitInstance.api.log(logRequest = logRequest.toLogRequestForUpload())
-                    if (response.body()?.code ?: 0 == 200) {
+                    if (response.body()?.isSuccess() == true) {
                         LoggerHelper.log("RemoteLog Submitted ${response.body()?.message}")
                         cacheLogInThread.isSynced = true
                         StorageRepoImp.updateUploadSuccess(cacheLogInThread)
@@ -51,7 +50,7 @@ object NetworkHelper : LogProvider {
     ) {
         val logRequest = getLogRequest(
             message,
-            logLevelEnum?:AppConfig.DEFAULT_LEVEL,
+            logLevelEnum ?: AppConfig.DEFAULT_LEVEL,
             tag,
             desc
         )
@@ -63,13 +62,23 @@ object NetworkHelper : LogProvider {
     }
 
     override fun sendLog(t: Throwable, tag: String?, desc: String?, logLevelEnum: LogLevelEnum?) {
-        val json = GSONUtils.toJSONObject(LogStackTrace(t.stackTrace ?: arrayOf()))
-        json.put("Cause",t.cause)
+        val json = JSONObject()
+        json.put("stackTrace", t.stackTrace)
+
+        var description: String? = null
+        t.stackTrace.firstOrNull()?.apply {
+            json.put("lineNumber", lineNumber)
+            json.put("fileName", fileName)
+            json.put("declaringClass", className)
+
+            description = "Crash at lineNumber: $lineNumber in file: $fileName"
+        }
+
         val logRequest = getLogRequest(
             json,
-            logLevelEnum?:AppConfig.DEFAULT_LEVEL,
+            logLevelEnum ?: AppConfig.DEFAULT_LEVEL,
             tag,
-            desc
+            desc ?: description
         )
         sendLog(
             System.currentTimeMillis(),
@@ -94,7 +103,7 @@ object NetworkHelper : LogProvider {
             logLevelEnum.value,
             tag ?: AppConfig.DEFAULT_TAG,
             desc ?: "",
-            obj?:JSONObject()
+            obj ?: JSONObject()
         )
     }
 

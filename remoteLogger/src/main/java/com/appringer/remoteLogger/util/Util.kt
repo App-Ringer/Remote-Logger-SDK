@@ -2,7 +2,6 @@ package com.appringer.remoteLogger.util
 
 import android.Manifest
 import android.content.Context
-import android.content.Context.CONNECTIVITY_SERVICE
 import android.content.Context.TELEPHONY_SUBSCRIPTION_SERVICE
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
@@ -49,9 +48,13 @@ object Util {
         val subsManager =
             getSystemService(TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager
 
-        return if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            subsManager.activeSubscriptionInfoList?.size?:0
-        }else 0
+        return if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_PHONE_STATE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            subsManager.activeSubscriptionInfoList?.size ?: 0
+        } else 0
 
     }
 

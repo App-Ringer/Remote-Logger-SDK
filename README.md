@@ -9,6 +9,12 @@ RemoteLogger.register("BLOCK_CALLS")
 ## setDefaultLevel
 `RemoteLogger.setDefaultLevel("Info")`
 
+## enable Log Cat
+`RemoteLogger.enableLogCat()`
+
+## disable Log Cat
+`RemoteLogger.disableLogCat()`
+
 ## Log Description with json[optional] & tag[optional]
 `RemoteLogger.log(desc, json, tag)`
 
