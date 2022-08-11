@@ -21,32 +21,15 @@ class MainActivity : AppCompatActivity() {
                 }
                 val desc = "desc"
                 val tag = "tag"
-                RemoteLogger.i("message")//TempDO("Temp","Desc",0L))
+                RemoteLogger.enableLogCat()
 
-                RemoteLogger.log(desc, dummyJson, tag)
-
-                RemoteLogger.log(Exception())
-
-                RemoteLogger.debug(desc, dummyJson, tag)
-
-                RemoteLogger.debug(Exception())
-
-                RemoteLogger.info(desc, dummyJson, tag)
-
-                RemoteLogger.info(Exception())
-
-                RemoteLogger.error(desc, dummyJson, tag)
+                //RemoteLogger.error(desc, dummyJson, tag)
 
                 RemoteLogger.error(Exception())
             }
 
             btnUncaughtException.setOnClickListener {
                 throwException()
-//            try {
-//                throwException()
-//            }catch (e:Exception){
-//                RemoteLogger.e(e)
-//            }
             }
         }
     }

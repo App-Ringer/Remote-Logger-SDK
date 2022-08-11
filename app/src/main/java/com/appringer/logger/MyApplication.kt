@@ -25,7 +25,7 @@ class MyApplication : Application(), LifecycleObserver {
         super.onCreate()
         RemoteLogger.apply {
             register(this@MyApplication, "SUA-786-JGK-754", appBuildVersion = BuildConfig.VERSION_NAME)
-            setTag("Relevant Tag")
+            setTag("My Default Tag")
             setLevel(LogLevelEnum.INFO)
         }
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)

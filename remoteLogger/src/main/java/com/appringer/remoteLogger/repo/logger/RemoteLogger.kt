@@ -4,9 +4,8 @@ import android.content.Context
 import com.appringer.remoteLogger.enum.LogLevelEnum
 import com.appringer.remoteLogger.helper.AppConfig
 import org.json.JSONObject
-import java.lang.Exception
 
-object RemoteLogger:LogProvider,LoggerConfig {
+object RemoteLogger : LogProvider, LoggerConfig {
 
     override fun unregister() {
         LoggerImpl.unregister()
@@ -20,6 +19,14 @@ object RemoteLogger:LogProvider,LoggerConfig {
         LoggerImpl.setLevel(level)
     }
 
+    override fun setDefaultTag(tag: String) {
+        LoggerImpl.setTag(tag)
+    }
+
+    override fun setDefaultLevel(level: LogLevelEnum) {
+        LoggerImpl.setLevel(level)
+    }
+
     override fun register(
         context: Context,
         apiKey: String,
@@ -30,84 +37,98 @@ object RemoteLogger:LogProvider,LoggerConfig {
         LoggerImpl.register(context, apiKey, enableLogCat, defaultTag, appBuildVersion)
     }
 
-    override fun enableLogCat() { LoggerImpl.enableLogCat() }
-    override fun disableLogCat() { LoggerImpl.disableLogCat() }
-
-    fun d(message: String, tag: String? = null, obj:JSONObject? = null) {
-        sendLog(obj, tag, message,LogLevelEnum.DEBUG)
+    override fun enableLogCat() {
+        LoggerImpl.enableLogCat()
     }
 
-    fun d(message: String? = null, tag: String? = null,t:Throwable) {
-        sendLog(t, tag, message,LogLevelEnum.DEBUG)
+    override fun disableLogCat() {
+        LoggerImpl.disableLogCat()
     }
 
-    fun i(message: String, tag: String? = null, obj:JSONObject? = null) {
-        sendLog(obj, tag, message,LogLevelEnum.INFO)
+    fun d(message: String, tag: String? = null, obj: JSONObject? = null) {
+        sendLog(obj, tag, message, LogLevelEnum.DEBUG)
     }
 
-    fun i(message: String? = null, tag: String? = null,t:Throwable) {
-        sendLog(t, tag, message,LogLevelEnum.INFO)
+    fun d(message: String? = null, tag: String? = null, t: Throwable) {
+        sendLog(t, tag, message, LogLevelEnum.DEBUG)
     }
 
-    fun v(message: String, tag: String? = null, obj:JSONObject? = null) {
-        sendLog(obj, tag, message,LogLevelEnum.VERBOSE)
+    fun i(message: String, tag: String? = null, obj: JSONObject? = null) {
+        sendLog(obj, tag, message, LogLevelEnum.INFO)
     }
 
-    fun v(message: String? = null, tag: String? = null, t:Throwable) {
-        sendLog(t, tag, message,LogLevelEnum.VERBOSE)
+    fun i(message: String? = null, tag: String? = null, t: Throwable) {
+        sendLog(t, tag, message, LogLevelEnum.INFO)
     }
 
-    fun e(message: String, tag: String? = null, obj:JSONObject? = null) {
-        sendLog(obj, tag, message,LogLevelEnum.ERROR)
+    fun v(message: String, tag: String? = null, obj: JSONObject? = null) {
+        sendLog(obj, tag, message, LogLevelEnum.VERBOSE)
     }
 
-    fun e(message: String? = null, tag: String? = null,t:Throwable) {
-        sendLog(t, tag, message,LogLevelEnum.ERROR)
+    fun v(message: String? = null, tag: String? = null, t: Throwable) {
+        sendLog(t, tag, message, LogLevelEnum.VERBOSE)
     }
 
-    fun log(message: String, tag: String? = null, obj:JSONObject? = null, level: LogLevelEnum = LogLevelEnum.INFO) {
-        sendLog(obj,tag,message, level)
+    fun e(message: String, tag: String? = null, obj: JSONObject? = null) {
+        sendLog(obj, tag, message, LogLevelEnum.ERROR)
+    }
+
+    fun e(message: String? = null, tag: String? = null, t: Throwable) {
+        sendLog(t, tag, message, LogLevelEnum.ERROR)
+    }
+
+    fun log(
+        message: String,
+        tag: String? = null,
+        obj: JSONObject? = null,
+        level: LogLevelEnum = LogLevelEnum.INFO
+    ) {
+        sendLog(obj, tag, message, level)
     }
 
     //level: CRASH
-    fun log(t:Throwable,tag:String?) {
-        sendLog(t, tag = tag?:AppConfig.DEFAULT_TAG)
+    fun log(t: Throwable, tag: String?) {
+        sendLog(t, tag = tag ?: AppConfig.DEFAULT_TAG)
     }
 
-    fun debug(t:Throwable) {
+    fun debug(t: Throwable) {
         sendLog(t, logLevelEnum = LogLevelEnum.DEBUG)
     }
 
-    fun info(t:Throwable) {
+    fun info(t: Throwable) {
         sendLog(t, logLevelEnum = LogLevelEnum.INFO)
     }
 
-    fun error(t:Throwable) {
+    fun error(t: Throwable) {
         sendLog(t, logLevelEnum = LogLevelEnum.ERROR)
     }
 
-    fun error(t:Throwable,tag:String?) {
-        sendLog(t, tag = tag?:AppConfig.DEFAULT_TAG, logLevelEnum = LogLevelEnum.ERROR)
+    fun error(t: Throwable, tag: String?) {
+        sendLog(t, tag = tag ?: AppConfig.DEFAULT_TAG, logLevelEnum = LogLevelEnum.ERROR)
     }
 
-    fun log(exception: Exception){
+    fun crash(t: Throwable, tag: String?) {
+        sendLog(t, tag = tag ?: AppConfig.DEFAULT_TAG, logLevelEnum = LogLevelEnum.CRASH)
+    }
+
+    fun log(exception: Exception) {
         sendLog(exception)
     }
 
-    fun log(desc: String?,json:JSONObject,tag: String?=AppConfig.DEFAULT_TAG){
-        sendLog(desc = desc, message =json,tag = tag)
+    fun log(desc: String?, json: JSONObject, tag: String? = AppConfig.DEFAULT_TAG) {
+        sendLog(desc = desc, message = json, tag = tag)
     }
 
-    fun debug(desc: String?,json:JSONObject,tag: String?=AppConfig.DEFAULT_TAG){
-        sendLog(desc = desc, message =json,tag = tag, logLevelEnum = LogLevelEnum.DEBUG)
+    fun debug(desc: String?, json: JSONObject, tag: String? = AppConfig.DEFAULT_TAG) {
+        sendLog(desc = desc, message = json, tag = tag, logLevelEnum = LogLevelEnum.DEBUG)
     }
 
-    fun info(desc: String?,json:JSONObject,tag: String?=AppConfig.DEFAULT_TAG){
-        sendLog(desc = desc, message =json,tag = tag, logLevelEnum = LogLevelEnum.INFO)
+    fun info(desc: String?, json: JSONObject, tag: String? = AppConfig.DEFAULT_TAG) {
+        sendLog(desc = desc, message = json, tag = tag, logLevelEnum = LogLevelEnum.INFO)
     }
 
-    fun error(desc: String?,json:JSONObject,tag: String?=AppConfig.DEFAULT_TAG){
-        sendLog(desc = desc, message =json,tag = tag, logLevelEnum = LogLevelEnum.ERROR)
+    fun error(desc: String?, json: JSONObject, tag: String? = AppConfig.DEFAULT_TAG) {
+        sendLog(desc = desc, message = json, tag = tag, logLevelEnum = LogLevelEnum.ERROR)
     }
 
     override fun sendLog(
@@ -116,11 +137,11 @@ object RemoteLogger:LogProvider,LoggerConfig {
         desc: String?,
         logLevelEnum: LogLevelEnum?
     ) {
-        LoggerImpl.sendLog(message,tag,desc, logLevelEnum)
+        LoggerImpl.sendLog(message, tag, desc, logLevelEnum)
     }
 
     override fun sendLog(t: Throwable, tag: String?, desc: String?, logLevelEnum: LogLevelEnum?) {
-        LoggerImpl.sendLog(t,tag, desc, logLevelEnum)
+        LoggerImpl.sendLog(t, tag, desc, logLevelEnum)
     }
 
 }

@@ -18,8 +18,8 @@ class AppRingerExceptionHandler internal constructor(
         }
     }
 
-    private fun reportUncaughtException(throwable: Throwable,context: Context) {
-        RemoteLogger.error(throwable,tag = context.packageName)
+    private fun reportUncaughtException(throwable: Throwable, context: Context) {
+        RemoteLogger.crash(throwable, tag = context.packageName)
     }
 
     companion object {

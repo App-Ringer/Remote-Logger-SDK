@@ -12,8 +12,9 @@ import retrofit2.http.POST
 interface RetrofitApi {
 
     @POST(URLConstant.LOG)
-    suspend fun log(@Header(AppConfig.API_HEADER) apiKey: String = AppConfig.API_KEY,
-                    @Body logRequest: LogRequestForUpload
+    suspend fun log(
+        @Header(AppConfig.API_HEADER) apiKey: String = AppConfig.API_KEY,
+        @Body logRequest: LogRequestForUpload
     ): Response<LogResponse>
 
 }

@@ -6,15 +6,20 @@ import com.appringer.remoteLogger.util.GSONUtils
 object LoggerHelper {
     internal const val mErrorTag = "KUSH_ERROR"
 
-    internal fun log(message: String?, ste: StackTraceElement):String {
+    internal fun log(message: String?, ste: StackTraceElement): String {
         val className = ste.className
         val methodName = ste.methodName
-        return prepareFinalLog(className, methodName, message, "Info").also { logString->
+        return prepareFinalLog(className, methodName, message, "Info").also { logString ->
             Log.d(mErrorTag, logString)
         }
     }
 
-    internal fun log(tag: String?, message: String?, ste: StackTraceElement, vararg strings: String?) {
+    internal fun log(
+        tag: String?,
+        message: String?,
+        ste: StackTraceElement,
+        vararg strings: String?
+    ) {
         val className = ste.className
         val methodName = ste.methodName
         Log.d(mErrorTag, prepareFinalLog(className, methodName, message, tag!!, strings))
@@ -43,7 +48,12 @@ object LoggerHelper {
         }
     }
 
-    internal fun prepareFinalLog(className: String, methodName: String, message: String?, vararg arguments: Any): String {
+    internal fun prepareFinalLog(
+        className: String,
+        methodName: String,
+        message: String?,
+        vararg arguments: Any
+    ): String {
         var className = className
         var finalMessage = ""
         val packageArray = className.split("\\.").toTypedArray()
@@ -55,7 +65,8 @@ object LoggerHelper {
             }
         } catch (var9: Exception) {
             val lineNumber = Thread.currentThread().stackTrace[2].lineNumber
-            finalMessage = "[" + className + "] [" + methodName + "]  : at line no. " + lineNumber + " " + var9.message
+            finalMessage =
+                "[" + className + "] [" + methodName + "]  : at line no. " + lineNumber + " " + var9.message
             Log.d(mErrorTag, finalMessage)
         }
         return finalMessage

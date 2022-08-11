@@ -12,8 +12,10 @@ internal interface LogProvider {
         logLevelEnum: LogLevelEnum? = AppConfig.DEFAULT_LEVEL
     )
 
-    fun sendLog(t: Throwable,
-                tag: String? = null,
-                desc: String? = null,
-                logLevelEnum: LogLevelEnum? = AppConfig.DEFAULT_LEVEL)
+    fun sendLog(
+        t: Throwable,
+        tag: String? = null,
+        desc: String? = null,
+        logLevelEnum: LogLevelEnum? = AppConfig.DEFAULT_LEVEL
+    )
 }

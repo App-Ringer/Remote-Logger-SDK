@@ -17,14 +17,30 @@ open class LogRequest(
 )
 
 data class DeviceInfo(
-    val osVersion: String = Build.VERSION.SDK_INT.toString(),
+    val appBuildVersion: String = AppConfig.APP_BUILD_VERSION,
+    val version: String = Build.VERSION.BASE_OS,
+    val osVersion: Int = Build.VERSION.SDK_INT,
+    val release: String = Build.VERSION.RELEASE,
+    val previewSDK: Int = Build.VERSION.PREVIEW_SDK_INT,
+    val sdkVersion: String = BuildConfig.sdkVersion,
+    val manufacturer: String = Build.MANUFACTURER,
+
+    val model: String = Build.MODEL,
+    val device: String = Build.DEVICE,
+    val brand: String = Build.BRAND,
+    val display: String = Build.DISPLAY,
+    val fingerprint: String = Build.FINGERPRINT,
+    val bootloader: String = Build.BOOTLOADER,
+    val product: String = Build.PRODUCT,
+    val networkStatus: String = AppConfig.NETWORK_STATUS,
+    val simCount: Int = AppConfig.SIM_COUNT,
+
     val platform: String = "Android",
-    val sdkVersion:String = BuildConfig.sdkVersion,
-    val manufacturer:String = android.os.Build.MANUFACTURER,
-    val model:String = android.os.Build.MODEL,
-    val networkStatus:String = AppConfig.NETWORK_STATUS,
-    val buildVersion:String = AppConfig.APP_BUILD_VERSION,
-    val securityPatch:String? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { android.os.Build.VERSION.SECURITY_PATCH } else { null },
+    val securityPatch: String? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        Build.VERSION.SECURITY_PATCH
+    } else {
+        null
+    },
 )
 
 fun LogRequest.toLogRequestForUpload() =

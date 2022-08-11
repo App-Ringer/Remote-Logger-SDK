@@ -9,5 +9,8 @@ interface StorageRepo {
 
     fun updateUploadSuccess(logs: CacheLogDO)
 
-    fun getCallLogs(cacheLogStatus: CacheLogStatus = CacheLogStatus.ALL,listener: RealmChangeListener<List<CacheLogDO>>)
+    fun getCallLogs(
+        cacheLogStatus: CacheLogStatus = CacheLogStatus.ALL,
+        listener: RealmChangeListener<List<CacheLogDO>>
+    )
 }

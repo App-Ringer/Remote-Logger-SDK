@@ -12,4 +12,8 @@ data class LogResponse(
     var error: Any?,
     @SerializedName("message")
     var message: String?
-)
+) {
+    fun isSuccess(): Boolean {
+        return code == 200
+    }
+}
