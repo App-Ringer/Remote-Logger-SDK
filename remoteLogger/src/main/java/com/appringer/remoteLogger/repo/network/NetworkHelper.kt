@@ -21,8 +21,8 @@ object NetworkHelper : LogProvider {
         logReq: String,
         isSynced: Boolean
     ) {
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
                 val cacheLogInThread = CacheLogDO(id, logReq, isSynced)
                 GSONUtils.getObj(logReq, LogRequest::class.java).let { logRequest ->
                     StorageRepoImp.saveCallLog(cacheLogInThread)
@@ -36,9 +36,9 @@ object NetworkHelper : LogProvider {
                         LoggerHelper.log("RemoteLog Failed ${response.body()?.message}")
                     }
                 }
+            } catch (e: Exception) {
+                LoggerHelper.log(e)
             }
-        } catch (e: Exception) {
-            LoggerHelper.log(e)
         }
     }
 
