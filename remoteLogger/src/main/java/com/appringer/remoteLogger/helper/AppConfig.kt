@@ -8,7 +8,6 @@ object AppConfig {
     var IS_LOGCAT_ENABLE: Boolean = true
     var DEFAULT_TAG: String = "Log"
     var NETWORK_STATUS: String = ""
-    var SIM_COUNT: Int = 0
     var APP_BUILD_VERSION: String = ""
     var DEFAULT_LEVEL: LogLevelEnum = LogLevelEnum.VERBOSE
 }

@@ -1,7 +1,6 @@
 package com.appringer.remoteLogger.repo.logger
 
 import android.content.Context
-import android.os.Build
 import com.appringer.remoteLogger.AppRingerExceptionHandler
 import com.appringer.remoteLogger.enum.CacheLogStatus
 import com.appringer.remoteLogger.enum.LogLevelEnum
@@ -9,7 +8,6 @@ import com.appringer.remoteLogger.helper.AppConfig
 import com.appringer.remoteLogger.helper.LoggerHelper
 import com.appringer.remoteLogger.repo.network.NetworkHelper
 import com.appringer.remoteLogger.repo.storage.StorageRepoImp
-import com.appringer.remoteLogger.util.Util.getSimCount
 import com.appringer.remoteLogger.util.Util.hasNetwork
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -30,9 +28,6 @@ object LoggerImpl : LogProvider, LoggerConfig {
         AppRingerExceptionHandler.register(context)
         AppConfig.NETWORK_STATUS = context.hasNetwork()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            AppConfig.SIM_COUNT = context.getSimCount()
-        }
         AppConfig.APP_BUILD_VERSION = appBuildVersion
         intiRealm(context, apiKey)
         pushUnSyncedLogs()
