@@ -13,7 +13,7 @@ android {
         minSdk 9
         targetSdk 31
         versionCode 2
-        versionName "1.0.7"
+        versionName "1.0.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 
@@ -21,10 +21,10 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField 'String', 'sdkVersion', '"1.0.7"'
+            buildConfigField 'String', 'sdkVersion', '"1.0.8"'
         }
         release {
-            buildConfigField 'String', 'sdkVersion', '"1.0.7"'
+            buildConfigField 'String', 'sdkVersion', '"1.0.8"'
         }
     }
 
@@ -74,7 +74,7 @@ afterEvaluate {
 
                 groupId = 'com.github.appringer'
                 artifactId = 'remoteLogger'
-                version = '1.0.7'
+                version = '1.0.8'
             }
         }
     }
