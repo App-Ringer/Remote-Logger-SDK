@@ -33,7 +33,6 @@ data class DeviceInfo(
     val bootloader: String = Build.BOOTLOADER,
     val product: String = Build.PRODUCT,
     val networkStatus: String = AppConfig.NETWORK_STATUS,
-    val simCount: Int = AppConfig.SIM_COUNT,
 
     val platform: String = "Android",
     val securityPatch: String? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
